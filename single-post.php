@@ -34,7 +34,7 @@
     <?php include('header.php'); ?>
 
 <main role="main" class="container">
-
+    <div class="row">
         <div class="col-sm-8 blog-main">
 
             <?php
@@ -60,10 +60,35 @@
                 </div>
                         
             </article>
+        <?php
+            $error = '';
+            if (!empty($_GET['error'])) {
+                $error = 'All fields are required';
+            }
+        ?>
+
+        <?php if (!empty($error)) { ?>
+            <span class="alert alert-danger"><?php echo $error; ?></span>
+        <?php } ?>
+
+        <form action= "createComment.php" method ="post">
+            <div class="form-group">
+                <input type="text" name="author"placeholder = "Author" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <textarea name="message" rows="3" cols="20" placeholder="Comment "class="form-control"></textarea>
+            </div>
+
+            <input type="hidden" value="<?php echo $_GET['post_id']; ?>" name="post_id">
+            <input type="submit" value="Submit" class="btn btm-primary">
+        </form>
 
         </div>
 
-    <?php include('sidebar.php'); ?>
+        <?php include('sidebar.php'); ?>
+
+    </div>
 
 </main>
      

@@ -13,7 +13,6 @@ $posts = $statement->fetchAll();
 
 
 ?>
-
     <div class="col-sm-8 blog-main">
 
     <?php
@@ -40,3 +39,5 @@ $posts = $statement->fetchAll();
             </nav>
 
         </div>
+
+</html>
