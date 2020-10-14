@@ -21,7 +21,7 @@ $posts = $statement->fetchAll();
 
         <article class="va-c-article">
             <header>
-                <h1><a href="single-post.php?post_id=<?php echo($post['id']) ?>"><?php echo($post['title']) ?></a></h1>
+                <h1><a href="single-post.php?id=<?php echo($post['id']) ?>"><?php echo($post['title']) ?></a></h1>
                 <div class="va-c-article__meta"><?php echo($post['created_at']) ?> by <?php echo($post['author']) ?></div>
             </header>
 

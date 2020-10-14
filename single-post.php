@@ -40,7 +40,7 @@
             <?php
                 if (isset($_GET['post_id'])) {
             
-                $sql = "SELECT id, title, body, author, created_at FROM posts WHERE id = {$_GET['post_id']}";
+                $sql = "SELECT id, title, body, author, created_at FROM posts WHERE id = {$_GET['id']}";
                 $statement = $connection->prepare($sql);
                 $statement->execute();
                 $statement->setFetchMode(PDO::FETCH_ASSOC);
@@ -66,6 +66,31 @@
                 $error = 'All fields are required';
             }
         ?>
+
+        <div class="comments">
+            <?php
+                $sql = "SELECT author, text FROM comments WHERE post.id = :post_id";
+                $statement = $connection->prepare($sql);
+                $statement->execute();
+                $statement->setFetchMode(PDO::FETCH_ASSOC);
+                $comments = $statement->fetchAll();
+            ?>
+                <h3>comments</h3>
+
+                    <div class="single-comment">
+                        <p><?php echo ($comments['text']) ?></p>   
+                    </div>
+                            <!-- <div class="single-comment">
+                                <div>posted by: <strong>Mitar Miric</strong> on 18.06.2017.</div>
+                                <div>Incidunt praesentium cupiditate consectetur repellendus, fugiat quidem, officiis
+                                    laudantium autem possimus ullam minima adipisci itaque? Eos, minus!
+                                </div>
+                            </div>
+                            <div class="single-comment">
+                                <div>posted by: <strong>Dule Savic</strong> on 20.06.2017.</div>
+                                <div>Jedna je Crvena Zvezda!</div>
+                            </div> -->
+            </div>
 
         <?php if (!empty($error)) { ?>
             <span class="alert alert-danger"><?php echo $error; ?></span>
