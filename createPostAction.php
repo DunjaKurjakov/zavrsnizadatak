@@ -16,17 +16,16 @@
 ?>
 
 <?php
-
-if (!empty($_POST['author']) && !empty($_POST['comment'])) {
-    $postId = $_POST['post_id'];
+if (!empty($_POST['author']) && !empty($_POST['title']) && !empty($_POST['body'])) {
     $author = $_POST['author'];
-    $text = $_POST['comment'];
-    $sql = "INSERT INTO comments (author, text, post_id) VALUES ('$author', '$text', '$postId');";
+    $title = $_POST['title'];
+    $body = $_POST['body'];
+    $sql = "INSERT INTO posts (title, body, author) VALUES ('$title', '$body', '$author');";
     $statement = $connection->prepare($sql);
     $statement->execute();
 
-    header("Location: http://localhost:8080/single-post.php?id=$postId");
+    header("Location: http://localhost:8080/index.php");
 } else {
-    header("Location: http://localhost:8080/single-post.php?id=$postId&error=required");
+    header("Location: http://localhost:8080/createPost.php?error=required");
 }
 ?>
