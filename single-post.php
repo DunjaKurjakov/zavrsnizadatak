@@ -38,15 +38,14 @@
         <div class="col-sm-8 blog-main">
 
             <?php
-                if (isset($_GET['post_id'])) {
-            
+
                 $sql = "SELECT id, title, body, author, created_at FROM posts WHERE id = {$_GET['id']}";
                 $statement = $connection->prepare($sql);
                 $statement->execute();
                 $statement->setFetchMode(PDO::FETCH_ASSOC);
                 $singlePost = $statement->fetch();
 
-                }
+
             ?>
 
             <article class="va-c-article">
@@ -58,7 +57,7 @@
                 <div>
                     <p><?php echo ($singlePost['body']) ?></p>
                 </div>
-                        
+
             </article>
         <?php
             $error = '';
@@ -69,28 +68,19 @@
 
         <div class="comments">
             <?php
-                $sql = "SELECT author, text FROM comments WHERE post.id = :post_id";
+                $sql = "SELECT * FROM comments WHERE post_id={$_GET['id']}";
                 $statement = $connection->prepare($sql);
                 $statement->execute();
                 $statement->setFetchMode(PDO::FETCH_ASSOC);
                 $comments = $statement->fetchAll();
             ?>
                 <h3>comments</h3>
-
+                    
                     <div class="single-comment">
-                        <p><?php echo ($comments['text']) ?></p>   
+                        <p><?php echo ($comments['text']) ?></p>
                     </div>
-                            <!-- <div class="single-comment">
-                                <div>posted by: <strong>Mitar Miric</strong> on 18.06.2017.</div>
-                                <div>Incidunt praesentium cupiditate consectetur repellendus, fugiat quidem, officiis
-                                    laudantium autem possimus ullam minima adipisci itaque? Eos, minus!
-                                </div>
-                            </div>
-                            <div class="single-comment">
-                                <div>posted by: <strong>Dule Savic</strong> on 20.06.2017.</div>
-                                <div>Jedna je Crvena Zvezda!</div>
-                            </div> -->
-            </div>
+                            
+        </div>
 
         <?php if (!empty($error)) { ?>
             <span class="alert alert-danger"><?php echo $error; ?></span>
@@ -108,6 +98,7 @@
             <input type="hidden" value="<?php echo $_GET['post_id']; ?>" name="post_id">
             <input type="submit" value="Submit" class="btn btm-primary">
         </form>
+        <?php include('comments.php'); ?>
 
         </div>
 
@@ -116,7 +107,7 @@
     </div>
 
 </main>
-     
+
     <?php include 'footer.php'; ?>
 
 </body>
